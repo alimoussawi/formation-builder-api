@@ -5,7 +5,7 @@
         <groupId>org.api</groupId>
         <artifactId>formation-builder</artifactId>
         <version>1.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../../formation-builder/pom.xml</relativePath>
     </parent>
 
     <artifactId>web</artifactId>
