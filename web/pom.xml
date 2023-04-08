@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <groupId>org.api</groupId>
+        <artifactId>formation-builder</artifactId>
+        <version>1.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -14,7 +14,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <kotlin.version>1.8.20-RC2</kotlin.version>
+        <springdoc-openapi-starter-webmvc.version>2.1.0</springdoc-openapi-starter-webmvc.version>
     </properties>
 
     <dependencies>
@@ -52,7 +52,11 @@
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-starter-webmvc.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
