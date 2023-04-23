@@ -16,6 +16,7 @@ class PlayerController(private val playerService: PlayerService) {
     @GetMapping("/players")
     @Operation(security = [SecurityRequirement(name = "bearerAuth")])
     fun getPlayer(): ResponseEntity<PlayerDTO> {
+        playerService.savePlayer()
         return ResponseEntity.ok(playerService.getPlayer())
     }
 }
