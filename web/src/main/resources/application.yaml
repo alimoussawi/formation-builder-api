@@ -5,6 +5,15 @@ springdoc:
     path: /api-docs
 
 spring:
+  data:
+    mongodb:
+      database: ${db_name}
+      host: ${db_host}
+      port: ${db_port}
+      authenticationDatabase: ${db_auth}
+      username: ${db_user}
+      password: ${db_pass}
+
   security:
     oauth2:
       client:

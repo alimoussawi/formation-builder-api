@@ -33,6 +33,10 @@
             <groupId>org.api</groupId>
             <artifactId>model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.api</groupId>
+            <artifactId>persistence</artifactId>
+        </dependency>
 
     </dependencies>
 
