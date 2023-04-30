@@ -2,21 +2,26 @@ package com.api.formationbuilder.service
 
 import com.api.formationbuilder.model.player.PlayerDTO
 import com.api.formationbuilder.persistence.player.Player
-import com.api.formationbuilder.persistence.player.PlayerRepository;
+import com.api.formationbuilder.persistence.player.PlayerRepository
 import org.springframework.stereotype.Service
 
 @Service
-open class PlayerService(private val playerRepository: PlayerRepository) {
-    fun getPlayer(): PlayerDTO {
+open class PlayerService(private val playerRepository: PlayerRepository, private val userService: UserService) {
+
+    fun getPlayers(): List<PlayerDTO> {
+        val createdBy = userService.getUserId()
+
         return playerRepository
-            .findAll()
+            .findAllByCreatedBy(createdBy)
             .map { player -> PlayerDTO(player.name, player.age, listOf()) }
-            .first();
+            .toList()
     }
 
 
-    fun savePlayer() {
-        val player: Player = Player(name = "ali1", age = 123);
+    fun savePlayer(playerDTO: PlayerDTO) {
+        val createdBy = userService.getUserId()
+
+        val player = Player(name = playerDTO.name, age = playerDTO.age, createdBy = createdBy)
         playerRepository.save(player)
     }
 }
