@@ -8,5 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class Player(
     @Id val id: ObjectId = ObjectId(),
     val name: String,
-    val age: Int
+    val age: Int,
+    val createdBy: String
 )
