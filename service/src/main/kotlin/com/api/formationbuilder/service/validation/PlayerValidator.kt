@@ -22,8 +22,7 @@ class PlayerValidator : ConstraintValidator<ValidPlayer, PlayerDTO> {
     }
 
     /**
-    invalid position will be caught early at the converter level
-    here we are checking the underlying of a position
+     * checking the underlying rules of a position - > roles -> duties relationship
      */
     private fun validatePositionRoleRelation(context: ConstraintValidatorContext, player: PlayerDTO): Boolean {
         player.familiarPositions.forEach { playerPositionDTO ->

@@ -53,7 +53,7 @@ class RestExceptionHandler {
 
 
     /**
-     *     for the annotation validations , ex : @NotEmpty, @Min ....
+     *     for the jakarta annotation validations , ex : @NotEmpty, @Min ....
      */
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(
