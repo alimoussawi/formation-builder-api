@@ -1,4 +1,4 @@
-package com.api.formationbuilder.service
+package com.api.formationbuilder.service.user
 
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
