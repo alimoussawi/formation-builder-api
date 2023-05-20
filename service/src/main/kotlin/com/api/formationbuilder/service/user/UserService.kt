@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-open class UserService {
+class UserService {
 
     fun getUserId(): String {
         return getClaim("sub") as String

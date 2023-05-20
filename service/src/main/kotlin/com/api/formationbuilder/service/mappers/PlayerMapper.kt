@@ -1,9 +1,8 @@
-package com.api.formationbuilder.service.player
+package com.api.formationbuilder.service.mappers
 
 import com.api.formationbuilder.model.player.PlayerDTO
+import com.api.formationbuilder.model.player.PlayerResponseDTO
 import com.api.formationbuilder.persistence.player.Player
-import com.api.formationbuilder.service.position.toPlayerPosition
-import com.api.formationbuilder.service.position.toPlayerPositionDTO
 
 fun PlayerDTO.toPlayer(createdBy: String) = Player(
     name = name,
@@ -14,6 +13,13 @@ fun PlayerDTO.toPlayer(createdBy: String) = Player(
 
 
 fun Player.toPlayerDTO() = PlayerDTO(
+    name = name,
+    age = age,
+    familiarPositions = familiarPositions.map { it.toPlayerPositionDTO() }
+)
+
+fun Player.toPlayerResponseDTO() = PlayerResponseDTO(
+    id = id.toString(),
     name = name,
     age = age,
     familiarPositions = familiarPositions.map { it.toPlayerPositionDTO() }
