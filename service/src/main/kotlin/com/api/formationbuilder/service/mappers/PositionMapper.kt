@@ -1,12 +1,14 @@
-package com.api.formationbuilder.service.position
+package com.api.formationbuilder.service.mappers
 
 import com.api.formationbuilder.model.constants.Duty
 import com.api.formationbuilder.model.constants.Position
 import com.api.formationbuilder.model.constants.Role
+import com.api.formationbuilder.model.position.GridPositionDTO
 import com.api.formationbuilder.model.position.PlayerPositionDTO
 import com.api.formationbuilder.model.role.PlayerRoleDTO
-import com.api.formationbuilder.persistence.position.PlayerPosition
-import com.api.formationbuilder.persistence.role.PlayerRole
+import com.api.formationbuilder.persistence.grid.GridPosition
+import com.api.formationbuilder.persistence.player.PlayerPosition
+import com.api.formationbuilder.persistence.player.PlayerRole
 
 fun PlayerPositionDTO.toPlayerPosition() =
     PlayerPosition(
@@ -26,3 +28,12 @@ fun PlayerPosition.toPlayerPositionDTO() =
                 familiarDuties = playerRole.duties.map { Duty.valueOf(it) })
         })
 
+fun GridPositionDTO.toGridPosition() = GridPosition(
+    name = position.name,
+    playerId = playerId
+)
+
+fun GridPosition.toGridPositionDTO() = GridPositionDTO(
+    position = Position.valueOf(name),
+    playerId = playerId
+)

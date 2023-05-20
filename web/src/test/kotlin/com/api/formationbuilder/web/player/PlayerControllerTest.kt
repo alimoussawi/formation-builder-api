@@ -5,13 +5,11 @@ import com.api.formationbuilder.web.mocks.Mocks
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -20,7 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 
 @WebMvcTest(controllers = [PlayerController::class])
-@ExtendWith(value = [SpringExtension::class])
 class PlayerControllerTest {
 
     @Autowired
@@ -36,7 +33,7 @@ class PlayerControllerTest {
 
     @Test
     fun getPlayer() {
-        `when`(playerService.getPlayers()).thenReturn(listOf(Mocks.playerDTO_validMock()))
+        `when`(playerService.getPlayers()).thenReturn(listOf(Mocks.playerResponseDTO_mock()))
 
         mockMvc.perform(
             get(playersUrl)
@@ -45,6 +42,8 @@ class PlayerControllerTest {
         )
             .andDo(print())
             .andExpect(status().isOk)
+            .andExpect(jsonPath("$.[0].id", `is`(Mocks.playerResponseDTO_mock().id)))
+            .andExpect(jsonPath("$.[0].name", `is`(Mocks.playerResponseDTO_mock().name)))
     }
 
     @Test
@@ -99,7 +98,6 @@ class PlayerControllerTest {
             .andExpect(status().`is`(400))
             .andExpect(jsonPath("$.detail", `is`("position roles cannot be empty")))
     }
-
 
 
     @Test

@@ -1,14 +1,13 @@
-package com.api.formationbuilder.persistence.player
+package com.api.formationbuilder.persistence.grid
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "players")
-data class Player(
+@Document(collection = "grids")
+data class Grid(
     @Id val id: ObjectId = ObjectId(),
     val name: String,
-    val age: Int,
     val createdBy: String,
-    val familiarPositions: List<PlayerPosition>
+    val gridRows: List<GridRow>
 )

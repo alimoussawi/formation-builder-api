@@ -23,14 +23,13 @@ class RestExceptionHandler {
             val message =
                 "Invalid value for position: ${cause.value}. Must be one of ${Position.values().joinToString(", ")}"
             val problemDetail: ProblemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, message)
-            problemDetail.setProperty("field", "player.position")
             return ResponseEntity.badRequest().body(problemDetail)
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(
                 ProblemDetail.forStatusAndDetail(
                     HttpStatus.INTERNAL_SERVER_ERROR,
-                    "An error occurred while processing your request."
+                    ex.message.toString()
                 )
             )
     }

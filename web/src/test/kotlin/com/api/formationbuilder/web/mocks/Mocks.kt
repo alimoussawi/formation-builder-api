@@ -3,13 +3,29 @@ package com.api.formationbuilder.web.mocks
 import com.api.formationbuilder.model.constants.Duty
 import com.api.formationbuilder.model.constants.Position
 import com.api.formationbuilder.model.constants.Role
+import com.api.formationbuilder.model.constants.Row
+import com.api.formationbuilder.model.grid.GridDTO
+import com.api.formationbuilder.model.grid.GridResponseDTO
+import com.api.formationbuilder.model.grid.GridRowDTO
 import com.api.formationbuilder.model.player.PlayerDTO
+import com.api.formationbuilder.model.player.PlayerResponseDTO
+import com.api.formationbuilder.model.position.GridPositionDTO
 import com.api.formationbuilder.model.position.PlayerPositionDTO
 import com.api.formationbuilder.model.role.PlayerRoleDTO
 
 class Mocks {
 
     companion object {
+        // player mocks
+        fun playerResponseDTO_mock(): PlayerResponseDTO {
+            return PlayerResponseDTO(
+                "player-id",
+                "player-mock",
+                15,
+                listOf(playerPositionDTO_DM_1(), playerPositionDTO_CM())
+            )
+        }
+
         fun playerDTO_validMock(): PlayerDTO {
             return PlayerDTO("player-mock", 15, listOf(playerPositionDTO_DM_1(), playerPositionDTO_CM()))
         }
@@ -78,5 +94,29 @@ class Mocks {
             )
         }
 
+        // grid mocks
+
+        val EMPTY_GRID_ROWS = Row.values().map { row ->
+            GridRowDTO(
+                index = row.ordinal,
+                name = row.name,
+                rowPositions = row.positions.map { rowPosition -> GridPositionDTO(rowPosition, null) }
+            )
+        }
+
+        fun gridResponseDTO_empty_mock(): GridResponseDTO {
+            return GridResponseDTO(
+                "grid-id",
+                "grid-name",
+                EMPTY_GRID_ROWS
+            )
+        }
+
+        fun gridDTO_empty_mock(): GridDTO {
+            return GridDTO(
+                "grid-name",
+                EMPTY_GRID_ROWS
+            )
+        }
     }
 }

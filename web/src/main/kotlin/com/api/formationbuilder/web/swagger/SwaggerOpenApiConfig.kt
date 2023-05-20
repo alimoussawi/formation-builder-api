@@ -15,5 +15,4 @@ import org.springframework.context.annotation.Configuration
     bearerFormat = "JWT",
     scheme = "bearer"
 )
-open class SwaggerOpenApiConfig {
-}
+open class SwaggerOpenApiConfig
