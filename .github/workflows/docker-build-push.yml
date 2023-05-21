@@ -2,7 +2,8 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches:
+    branches-ignore:
+      - main
       - master
 
 jobs:
@@ -26,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          dockerfile: ./Dockerfile
+          dockerfile: Dockerfile
           push: true
           tags: alimossawi/formation-builder:latest
