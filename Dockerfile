@@ -43,6 +43,10 @@ ENV db_auth=admin
 ENV db_user=rootuser
 ENV db_pass=rootpass
 
+# Copy the JAR file into the container
+COPY web/target/web-1.0.0-SNAPSHOT.jar .
 
 # Expose the port that the Spring Boot application listens on
 EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "web-1.0.0-SNAPSHOT.jar"]
