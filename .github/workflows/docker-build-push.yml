@@ -32,3 +32,6 @@ jobs:
           context: .
           push: true
           tags: alimossawi/formation-builder:latest
+
+      - name: Clear Docker build cache
+        run: docker builder prune --all --force --filter type=exec.cachemount
