@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clear Docker build cache
+        run: docker builder prune --all --force --filter type=exec.cachemount
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -32,6 +35,3 @@ jobs:
           context: .
           push: true
           tags: alimossawi/formation-builder:latest
-
-      - name: Clear Docker build cache
-        run: docker builder prune --all --force --filter type=exec.cachemount
