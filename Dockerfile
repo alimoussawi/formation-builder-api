@@ -35,14 +35,6 @@ RUN mvn dependency:go-offline -B
 # Build the application using Maven
 RUN mvn package -DskipTests
 
-# Set environment variables
-ENV db_name=formationbuilder
-ENV db_host=localhost
-ENV db_port=27017
-ENV db_auth=admin
-ENV db_user=rootuser
-ENV db_pass=rootpass
-
 # Copy the JAR file into the container
 COPY web/target/web-1.0.0-SNAPSHOT.jar .
 

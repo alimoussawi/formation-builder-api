@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  formation-builder:
+    image: alimossawi/formation-builder:latest
+    container_name: formation-builder-api
+    ports:
+      - "8080:8080"
+    networks:
+      - mongodb_network
+    environment:
+      - db_name=formationbuilder
+      - db_host=mongodb
+      - db_port=27017
+      - db_auth=admin
+      - db_user=rootuser
+      - db_pass=rootpass
+networks:
+  mongodb_network:
+      name: mongodb_network
+      external: true
+
