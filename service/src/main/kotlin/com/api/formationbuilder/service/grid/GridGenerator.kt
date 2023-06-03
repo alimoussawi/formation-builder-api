@@ -19,7 +19,7 @@ class GridGenerator {
             GridRowDTO(
                 index = row.ordinal,
                 name = row.name,
-                rowPositions = row.positions.map { rowPosition -> GridPositionDTO(rowPosition, null) }
+                rowPositions = row.positions.mapIndexed { index, position -> GridPositionDTO(index, position, null) }
             )
         }
     }

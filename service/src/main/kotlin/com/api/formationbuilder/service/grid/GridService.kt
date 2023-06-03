@@ -9,7 +9,6 @@ import com.api.formationbuilder.service.mappers.toGridResponseDTO
 import com.api.formationbuilder.service.mappers.toGridRow
 import com.api.formationbuilder.service.user.UserService
 import org.springframework.stereotype.Service
-import java.lang.RuntimeException
 
 @Service
 class GridService(
@@ -26,6 +25,12 @@ class GridService(
                 it.toGridResponseDTO()
             }
             .toList()
+    }
+
+    fun getGrid(gridId: String): GridResponseDTO {
+        return gridRepository.findById(gridId)
+            .map { grid -> grid.toGridResponseDTO() }
+            .orElseThrow { GridNotFoundException("grid with id: $gridId not found") }
     }
 
     fun createEmptyGrid(): GridDTO {
