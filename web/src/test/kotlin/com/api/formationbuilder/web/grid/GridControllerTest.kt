@@ -47,6 +47,20 @@ class GridControllerTest {
     }
 
     @Test
+    fun getGrid_return_empty_grid() {
+        val gridId = "grid-id"
+        `when`(gridService.getGrid(gridId)).thenReturn(Mocks.gridResponseDTO_empty_mock())
+        mockMvc.perform(
+            get("$gridsUrl/$gridId").with(jwt()).contentType("application/json")
+        )
+            .andDo(print())
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.id", `is`(Mocks.gridResponseDTO_empty_mock().id)))
+            .andExpect(jsonPath("$.name", `is`(Mocks.gridResponseDTO_empty_mock().name)))
+            .andExpect(jsonPath("$.gridRows", hasSize(6), List::class.java))
+    }
+
+    @Test
     fun createEmptyGrid() {
         val gridToSave = Mocks.gridDTO_empty_mock()
         `when`(gridService.createEmptyGrid()).thenReturn(gridToSave)

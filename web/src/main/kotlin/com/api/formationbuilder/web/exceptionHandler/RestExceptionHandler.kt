@@ -1,6 +1,7 @@
 package com.api.formationbuilder.web.exceptionHandler
 
 import com.api.formationbuilder.model.constants.Position
+import com.api.formationbuilder.service.exception.GridNotFoundException
 import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
@@ -67,4 +68,16 @@ class RestExceptionHandler {
             )
     }
 
+    @ExceptionHandler(GridNotFoundException::class)
+    fun handleGridNotFoundException(
+        ex: GridNotFoundException
+    ): ResponseEntity<ProblemDetail> {
+        return ResponseEntity.badRequest()
+            .body(
+                ProblemDetail.forStatusAndDetail(
+                    HttpStatus.NOT_FOUND,
+                    ex.message.toString()
+                )
+            )
+    }
 }

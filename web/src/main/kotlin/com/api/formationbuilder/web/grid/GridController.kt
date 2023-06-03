@@ -21,6 +21,12 @@ class GridController(private val gridService: GridService) {
         return ResponseEntity.ok(gridService.getGrids())
     }
 
+    @GetMapping("/{id}")
+    @SwaggerSecurity
+    fun getGrid(@PathVariable id: String): ResponseEntity<GridResponseDTO> {
+        return ResponseEntity.ok(gridService.getGrid(id))
+    }
+
     @PostMapping
     @SwaggerSecurity
     fun createEmptyGrid(): ResponseEntity<String> {

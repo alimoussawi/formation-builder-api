@@ -29,11 +29,13 @@ fun PlayerPosition.toPlayerPositionDTO() =
         })
 
 fun GridPositionDTO.toGridPosition() = GridPosition(
+    index = index,
     name = position.name,
     playerId = playerId
 )
 
 fun GridPosition.toGridPositionDTO() = GridPositionDTO(
+    index = index,
     position = Position.valueOf(name),
     playerId = playerId
 )
