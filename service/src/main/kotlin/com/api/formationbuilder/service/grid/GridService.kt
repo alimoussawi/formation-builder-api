@@ -3,6 +3,7 @@ package com.api.formationbuilder.service.grid
 import com.api.formationbuilder.model.grid.GridDTO
 import com.api.formationbuilder.model.grid.GridResponseDTO
 import com.api.formationbuilder.persistence.grid.GridRepository
+import com.api.formationbuilder.persistence.player.PlayerRepository
 import com.api.formationbuilder.service.exception.GridNotFoundException
 import com.api.formationbuilder.service.mappers.toGrid
 import com.api.formationbuilder.service.mappers.toGridResponseDTO
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service
 class GridService(
     private val gridGenerator: GridGenerator,
     private val gridRepository: GridRepository,
+    private val playerRepository: PlayerRepository,
     private val userService: UserService
 ) {
 
@@ -40,7 +42,7 @@ class GridService(
     fun saveGrid(gridDTO: GridDTO): String {
         val createdBy = userService.getUserId()
 
-        val grid = gridDTO.toGrid(createdBy)
+        val grid = gridDTO.toGrid(createdBy, playerRepository)
         return gridRepository.save(grid).id.toString()
     }
 
@@ -55,7 +57,7 @@ class GridService(
             id = gridToUpdate.id,
             name = gridDTO.name,
             createdBy = gridToUpdate.createdBy,
-            gridRows = gridDTO.gridRows.map { gridRowDTO -> gridRowDTO.toGridRow() }
+            gridRows = gridDTO.gridRows.map { gridRowDTO -> gridRowDTO.toGridRow(playerRepository) }
         )
 
         return gridRepository.save(gridUpdated).toGridResponseDTO()

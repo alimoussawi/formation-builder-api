@@ -44,6 +44,7 @@ class GridControllerTest {
             .andExpect(jsonPath("$.[0].id", `is`(Mocks.gridResponseDTO_empty_mock().id)))
             .andExpect(jsonPath("$.[0].name", `is`(Mocks.gridResponseDTO_empty_mock().name)))
             .andExpect(jsonPath("$[0].gridRows", hasSize(6), List::class.java))
+            .andExpect(jsonPath("$[0].gridBench", hasSize(7), List::class.java))
     }
 
     @Test
@@ -58,6 +59,7 @@ class GridControllerTest {
             .andExpect(jsonPath("$.id", `is`(Mocks.gridResponseDTO_empty_mock().id)))
             .andExpect(jsonPath("$.name", `is`(Mocks.gridResponseDTO_empty_mock().name)))
             .andExpect(jsonPath("$.gridRows", hasSize(6), List::class.java))
+            .andExpect(jsonPath("$.gridBench", hasSize(7), List::class.java))
     }
 
     @Test
@@ -93,6 +95,20 @@ class GridControllerTest {
             .andExpect(jsonPath("$.id", `is`(Mocks.gridResponseDTO_empty_mock().id)))
             .andExpect(jsonPath("$.name", `is`(Mocks.gridResponseDTO_empty_mock().name)))
             .andExpect(jsonPath("$.gridRows", hasSize(6), List::class.java))
+            .andExpect(jsonPath("$.gridBench", hasSize(7), List::class.java))
+    }
+
+    @Test
+    fun updateGrid_with_grid_and_bench_contain_duplication_should_fail() {
+        mockMvc.perform(
+            put("$gridsUrl/grid-id")
+                .with(jwt())
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(Mocks.gridDTO_duplication_error_mock()))
+        )
+            .andDo(print())
+            .andExpect(status().`is`(400))
+            .andExpect(jsonPath("$.detail", `is`("grid and bench cannot contain same players , players : [PLAYER-ID-1]")))
     }
 
 }
