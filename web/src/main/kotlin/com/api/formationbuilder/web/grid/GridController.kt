@@ -3,8 +3,8 @@ package com.api.formationbuilder.web.grid
 import com.api.formationbuilder.model.grid.GridDTO
 import com.api.formationbuilder.model.grid.GridResponseDTO
 import com.api.formationbuilder.service.grid.GridService
+import com.api.formationbuilder.service.validation.ValidGrid
 import com.api.formationbuilder.web.swagger.SwaggerSecurity
-import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -36,7 +36,7 @@ class GridController(private val gridService: GridService) {
 
     @PutMapping("/{id}")
     @SwaggerSecurity
-    fun updateGrid(@PathVariable id: String, @RequestBody @Valid grid: GridDTO): ResponseEntity<GridResponseDTO> {
+    fun updateGrid(@PathVariable id: String, @RequestBody @ValidGrid grid: GridDTO): ResponseEntity<GridResponseDTO> {
         return ResponseEntity.status(HttpStatus.OK).body(gridService.updateGrid(id, grid))
     }
 }

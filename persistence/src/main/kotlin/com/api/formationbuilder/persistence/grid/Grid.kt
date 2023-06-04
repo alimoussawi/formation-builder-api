@@ -9,5 +9,6 @@ data class Grid(
     @Id val id: ObjectId = ObjectId(),
     val name: String,
     val createdBy: String,
-    val gridRows: List<GridRow>
+    val gridRows: List<GridRow>,
+    val gridBench: List<BenchPosition>
 )

@@ -2,8 +2,7 @@ package com.api.formationbuilder.persistence.grid
 
 import com.api.formationbuilder.persistence.player.Player
 
-data class GridPosition(
+data class BenchPosition(
     val index: Int,
-    val name: String,
     val player: Player?
 )

@@ -3,12 +3,14 @@ package com.api.formationbuilder.service.mappers
 import com.api.formationbuilder.model.constants.Duty
 import com.api.formationbuilder.model.constants.Position
 import com.api.formationbuilder.model.constants.Role
-import com.api.formationbuilder.model.position.GridPositionDTO
-import com.api.formationbuilder.model.position.PlayerPositionDTO
+import com.api.formationbuilder.model.position.*
 import com.api.formationbuilder.model.role.PlayerRoleDTO
+import com.api.formationbuilder.persistence.grid.BenchPosition
 import com.api.formationbuilder.persistence.grid.GridPosition
 import com.api.formationbuilder.persistence.player.PlayerPosition
+import com.api.formationbuilder.persistence.player.PlayerRepository
 import com.api.formationbuilder.persistence.player.PlayerRole
+import com.api.formationbuilder.service.exception.PlayerNotFoundException
 
 fun PlayerPositionDTO.toPlayerPosition() =
     PlayerPosition(
@@ -28,14 +30,24 @@ fun PlayerPosition.toPlayerPositionDTO() =
                 familiarDuties = playerRole.duties.map { Duty.valueOf(it) })
         })
 
-fun GridPositionDTO.toGridPosition() = GridPosition(
+fun GridPositionDTO.toGridPosition(playerRepository: PlayerRepository) = GridPosition(
     index = index,
     name = position.name,
-    playerId = playerId
+    player = playerId?.let { playerRepository.findById(it).orElseThrow { PlayerNotFoundException("player with id : $it not found") } }
 )
 
-fun GridPosition.toGridPositionDTO() = GridPositionDTO(
+fun GridPosition.toGridPositionResponseDTO() = GridPositionResponseDTO(
     index = index,
     position = Position.valueOf(name),
-    playerId = playerId
+    player = player?.toPlayerResponseDTO()
+)
+
+fun BenchPosition.toBenchPositionDTO() = BenchPositionResponseDTO(
+    index = index,
+    player = player?.toPlayerResponseDTO()
+)
+
+fun BenchPositionDTO.toBenchPosition(playerRepository: PlayerRepository) = BenchPosition(
+    index = index,
+    player = playerId?.let { playerRepository.findById(it).orElseThrow { PlayerNotFoundException("player with id : $it not found") } }
 )
